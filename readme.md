@@ -2,19 +2,39 @@
 
 ## Installation
 
-Create new project
+Clone this repository
 
 ```
-composer create-project cleaniquecoders/web-app-boilerplate
+git clone https://github.com/nasrulhazim/amanz-glossari.git
 ```
 
 Go into application directory and install all dependencies.
 
 ```
-cd web-app-boilerplate && composer install
+cd amanz-glossari && composer install
 ```
 
 Update your database connection in `.env`.
+
+## Requirements
+
+Install [CasperJs](http://casperjs.org/) globally.
+
+```
+npm install -g casperjs
+```
+
+Install [PhantomJs](http://phantomjs.org/) globally.
+
+```
+npm install -g phantomjs
+```
+
+On development, if you're using Mac, you can install both by using Homebrew
+
+```
+brew install casperjs && brew install phantomjs
+```
 
 ## Login with Facebook
 
