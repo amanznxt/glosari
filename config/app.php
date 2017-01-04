@@ -186,6 +186,7 @@ return [
         CleaniqueCoders\Providers\SettingServiceProvider::class,
         CleaniqueCoders\Themer\ThemerServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...

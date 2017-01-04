@@ -26,7 +26,7 @@ Route::group(
             'auth',
         ],
     ], function () {
-        Route::group(['prefix' => 'self'], function () {
+        Route::group(['prefix' => 'api'], function () {
             \App\Routes\API\Scrapper::routes();
         });
         Route::get('dashboard', 'HomeController@index');

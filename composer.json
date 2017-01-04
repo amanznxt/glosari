@@ -15,7 +15,8 @@
         "cleaniquecoders/setting": "^1.0",
         "cleaniquecoders/artisan-extended": "^1.0",
         "laracasts/flash": "^2.0",
-        "cleaniquecoders/themer": "^1.0"
+        "cleaniquecoders/themer": "^1.0",
+        "laravel/passport": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

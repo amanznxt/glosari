@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "bulma": "^0.2.3",
-    "font-awesome": "^4.6.3"
+    "casper": "^0.1.1",
+    "font-awesome": "^4.6.3",
+    "gulp": "^3.9.1"
   }
 }
