@@ -11,6 +11,18 @@
 	@include('components.forms.submit',['route' => 'articles'])
 @endsection
 
+@if($type == 'PUT')
+	@section('scripts')
+		<script type="text/javascript">
+			function process() {
+				jQuery.get('{{ route('articles.process', ['id' => $resource->id]) }}', {}, function(data, textStatus, xhr) {
+				  alert('Analyze in progress. We will notify you when it\'s ready.');
+				});
+			}
+		</script>
+	@endsection
+@endif
+
 @section('content')
 	<div class="container">
 		@if($type == 'POST')
@@ -20,9 +32,9 @@
 				'_method' => 'POST'
 			]])
 		@elseif($type == 'PUT')
-			<a href="{{ route('articles.process', ['id' => $resource->id]) }}" class="btn btn-danger pull-right">
+			<div class="btn btn-danger pull-right" onclick="process()">
 				<span class="glyphicon glyphicon-refresh pull-right"></span>
-			</a>
+			</div>
 			<hr>
 			@include('components.forms.base', ['options' => [
 				'method' => 'POST',
