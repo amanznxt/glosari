@@ -40,3 +40,4 @@ Route::group(
 // Handle Socialite Redirection & Callback
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
+\App\Routes\Article::routes();
