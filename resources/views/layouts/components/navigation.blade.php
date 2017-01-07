@@ -39,18 +39,24 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ url('/dashboard') }}">Dashboard</a>
+                                <a href="{{ url('/dashboard') }}"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a>
                             </li>
-                            @ability('administrator,trainer,facilitator','users-index')
+                            @ability('administrator','*')
                                 <li>
-                                    <a href="{{ route('users.index') }}">User Manager</a>
+                                    <a href="{{ route('articles.index') }}"><span class="glyphicon glyphicon-list"></span> Articles</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('dictionaries.index') }}"><span class="glyphicon glyphicon-book"></span> Dictionary</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('users.index') }}"><span class="glyphicon glyphicon-user"></span> User Manager</a>
                                 </li>
                             @endability
                             <li>
                                 <a href="{{ url('/logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                    Logout
+                                    <span class="glyphicon glyphicon-log-out"></span> Logout
                                 </a>
 
                                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
