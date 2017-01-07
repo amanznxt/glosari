@@ -5,6 +5,7 @@ namespace App\Collocations\Core;
 use App\Article;
 use App\Dictionary;
 use App\Jobs\ScrapDbp;
+use Carbon\Carbon;
 
 /**
  * Process the Article given
@@ -32,7 +33,10 @@ class Process
                 ]);
 
                 if (empty($dictionary->lexicon_id)) {
-                    dispatch(new ScrapDbp($dictionary));
+                    $job = (new ScrapDbp($dictionary))
+                        ->delay(Carbon::now()->addSeconds(10));
+
+                    dispatch($job);
                 }
             }
         }
