@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3c8d2f9a06eee0b9b97d2ef3bab48e05",
-    "content-hash": "83595834f9e86eb63a74151e6f5d3408",
+    "hash": "e11457c5490b9e5a3f60311ef80b2f32",
+    "content-hash": "55aae59556dca3db068ac99f6b8dba16",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -63,22 +63,23 @@
         },
         {
             "name": "cleaniquecoders/artisan-extended",
-            "version": "v1.1.0",
+            "version": "v1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cleaniquecoders/artisan-extended.git",
-                "reference": "096c119bfd8530216f5a0c994ea6efc97e5c802a"
+                "reference": "f771998a9e6ea63aad4db3472be05ea062e4bd66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cleaniquecoders/artisan-extended/zipball/096c119bfd8530216f5a0c994ea6efc97e5c802a",
-                "reference": "096c119bfd8530216f5a0c994ea6efc97e5c802a",
+                "url": "https://api.github.com/repos/cleaniquecoders/artisan-extended/zipball/f771998a9e6ea63aad4db3472be05ea062e4bd66",
+                "reference": "f771998a9e6ea63aad4db3472be05ea062e4bd66",
                 "shasum": ""
             },
             "require": {
                 "illuminate/console": "5.3.*",
                 "illuminate/support": "5.3.*",
-                "laracasts/flash": "^2.0"
+                "laracasts/flash": "^2.0",
+                "santigarcor/laratrust": "3.0.*"
             },
             "type": "library",
             "autoload": {
@@ -97,7 +98,7 @@
                 }
             ],
             "description": "Laravel Artisan Extended Commands",
-            "time": "2016-12-18 16:32:54"
+            "time": "2017-01-04 09:42:52"
         },
         {
             "name": "cleaniquecoders/setting",

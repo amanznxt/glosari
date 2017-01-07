@@ -13,7 +13,7 @@
         "tymon/jwt-auth": "0.5.*",
         "laravie/html": "~5.3",
         "cleaniquecoders/setting": "^1.0",
-        "cleaniquecoders/artisan-extended": "^1.0",
+        "cleaniquecoders/artisan-extended": "^1.1",
         "laracasts/flash": "^2.0",
         "cleaniquecoders/themer": "^1.0",
         "laravel/passport": "^1.0"
