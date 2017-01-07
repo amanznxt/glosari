@@ -15,6 +15,13 @@
 
     @yield('styles')
 
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+
+    <style type="text/css">
+        * {
+            font-family: 'Karla', sans-serif;
+        }
+    </style>
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
