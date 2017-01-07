@@ -41,3 +41,4 @@ Route::group(
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 \App\Routes\Article::routes();
+\App\Routes\Dictionary::routes();
