@@ -17,7 +17,15 @@ class DictionaryController extends Controller
     {
         $dictionaries = Dictionary::orderBy('created_at', 'desc')->paginate(25);
         $lexicons = Lexicon::whereNull('parent_id')->orderby('name')->get();
-        return view('dictionaries.index', ['resources' => $dictionaries, 'route' => 'dictionaries', 'lexicons' => $lexicons]);
+        $totalSet = Dictionary::whereNotNull('lexicon_id')->get()->count();
+        $totalNotSet = Dictionary::whereNull('lexicon_id')->get()->count();
+        return view('dictionaries.index', [
+            'resources' => $dictionaries,
+            'route' => 'dictionaries',
+            'lexicons' => $lexicons,
+            'totalSet' => $totalSet,
+            'totalNotSet' => $totalNotSet,
+        ]);
     }
 
     /**

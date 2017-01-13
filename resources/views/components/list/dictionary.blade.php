@@ -43,6 +43,10 @@
 					{{ $resources->links() }}
 				@endif
 
+				<h3> Ratio Non-Set and Set Lexicon for Dictionaries
+				<span class="label label-{{ $totalNotSet > $totalSet ? 'danger':'info' }}">{{ $totalNotSet }}</span> : <span class="label label-{{ $totalNotSet > $totalSet ? 'success':'danger' }}">{{ $totalSet }}</span>
+				</h3>
+
 				<div class="table-responsive">
 				<table class="table table-hover">
 					<thead>

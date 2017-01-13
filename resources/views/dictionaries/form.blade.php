@@ -3,7 +3,8 @@
 @section('form-components')
 	@include('components.forms.input', [
 			'type' => 'text',
-			'name' => 'Name',
+			'name' => 'name',
+			'label' => 'Name',
 			'value' => ($type == 'PUT' ? $resource->name : null)
 		])
 	@include('components.forms.dropdown', [

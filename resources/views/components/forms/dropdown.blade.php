@@ -6,5 +6,5 @@
 		])
 	}}
   	@include('components.forms.error', ['name' => $name])
-    <span class="label label-{{ $errors->has($name) ? 'danger' : 'primary' }}">{{ title_case($name) }}</span>
+    <span class="label label-{{ $errors->has($name) ? 'danger' : 'primary' }}">{{ title_case($label) }}</span>
 </div>
