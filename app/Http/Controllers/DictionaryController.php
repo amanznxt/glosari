@@ -15,9 +15,9 @@ class DictionaryController extends Controller
      */
     public function index()
     {
-        $dictionarys = Dictionary::orderBy('created_at', 'desc')->paginate(25);
-        $lexicons = Lexicon::all();
-        return view('dictionaries.index', ['resources' => $dictionarys, 'route' => 'dictionaries', 'lexicons' => $lexicons]);
+        $dictionaries = Dictionary::orderBy('created_at', 'desc')->paginate(25);
+        $lexicons = Lexicon::whereNull('parent_id')->orderby('name')->get();
+        return view('dictionaries.index', ['resources' => $dictionaries, 'route' => 'dictionaries', 'lexicons' => $lexicons]);
     }
 
     /**
@@ -27,7 +27,8 @@ class DictionaryController extends Controller
      */
     public function create()
     {
-        return view('dictionaries.form', ['type' => 'POST']);
+        $lexicons = Lexicon::whereNull('parent_id')->orderby('name')->get();
+        return view('dictionaries.form', ['type' => 'POST', 'lexicons' => $lexicons]);
     }
 
     /**
@@ -68,7 +69,8 @@ class DictionaryController extends Controller
     {
         $type = 'PUT';
         $dictionary = Dictionary::find($id);
-        return view('dictionaries.form', ['type' => 'PUT', 'resource' => $dictionary]);
+        $lexicons = Lexicon::whereNull('parent_id')->orderby('name')->get();
+        return view('dictionaries.form', ['type' => 'PUT', 'resource' => $dictionary, 'lexicons' => $lexicons]);
     }
 
     /**
@@ -84,8 +86,33 @@ class DictionaryController extends Controller
         //     'name' => 'required|min:3|max:255',
         // ]);
         Dictionary::where('id', $id)->update($request->except('_method', '_token'));
+
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Dictionary updated']);
+        }
+
         flash('Resource successfully updated', 'success');
         return redirect()->route('dictionaries.index');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function setWordLexicon(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'lexicon_id' => 'required',
+        ]);
+
+        Dictionary::where('id', $request->input('id'))->update($request->except('_method', '_token'));
+
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Dictionary Lexicon Updated']);
+        }
     }
 
     /**
