@@ -15,9 +15,9 @@ class Dictionary
             'prefix' => '',
             'middleware' => [],
         ], function () {
-            Route::resource('dictionaries', '\App\Http\Controllers\DictionaryController');
-            Route::put('dictionaries/lexicon', '\App\Http\Controllers\DictionaryController@updateLexicon')
+            Route::put('dictionaries/lexicon', '\App\Http\Controllers\DictionaryController@setWordLexicon')
                 ->name('dictionaries.updateLexicon');
+            Route::resource('dictionaries', '\App\Http\Controllers\DictionaryController');
         });
     }
 }

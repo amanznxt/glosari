@@ -9,13 +9,14 @@
 			jQuery.post('{{ route('dictionaries.updateLexicon') }}',
 				{
 					_method: 'PUT',
-					token: window.Laravel.csrfToken,
-					word_id: word_id,
+					_token: window.Laravel.csrfToken,
+					id: word_id,
 					lexicon_id: lexicon_id
 				},
 				function(data, textStatus, xhr) {
-			  alert(data.message);
-			});
+			  		alert(data.message);
+				}
+			);
 		}
 	</script>
 @endsection
