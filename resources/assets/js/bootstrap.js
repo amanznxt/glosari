@@ -13,7 +13,8 @@ require('bootstrap-sass');
 jQuery(document).ready(function($) {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': Laravel.csrfToken
+            'X-CSRF-TOKEN': Laravel.csrfToken,
+            'Accept': 'application/json'
         }
     });
 });
