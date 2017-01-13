@@ -12,7 +12,7 @@
  */
 // theme configuration can be use app.themes.default for default while app.themes.admin for admin
 Route::get('/', function (Request $request) {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('/account/activate/{token}', 'AccountController@activate');
@@ -30,6 +30,8 @@ Route::group(
             \App\Routes\API\Scrapper::routes();
         });
         Route::get('dashboard', 'HomeController@index');
+        \App\Routes\Article::routes();
+        \App\Routes\Dictionary::routes();
 
         // Administrator, Trainer and Facilitator only
         Route::group(['middleware' => ['role:administrator']], function () {
@@ -40,5 +42,3 @@ Route::group(
 // Handle Socialite Redirection & Callback
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
-\App\Routes\Article::routes();
-\App\Routes\Dictionary::routes();

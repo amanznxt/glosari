@@ -1,7 +1,17 @@
 @extends('layouts.master')
 
 @section('form-components')
-	@include('components.forms.input', ['type' => 'text', 'name' => 'Name', 'value' => null])
+	@include('components.forms.input', [
+			'type' => 'text',
+			'name' => 'Name',
+			'value' => ($type == 'PUT' ? $resource->name : null)
+		])
+	@include('components.forms.dropdown', [
+			'name' => 'lexicon_id',
+			'label' => 'Lexicon',
+			'options' => $lexicons,
+			'selected' => ($type == 'PUT' ? $resource->lexicon->id : null)
+		])
 	@include('components.forms.submit',['route' => 'dictionaries'])
 @endsection
 

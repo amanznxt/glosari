@@ -1,9 +1,25 @@
-<script type="text/javascript">
-	function updateWordLexicon(id)
-	{
-		alert(1);
-	}
-</script>
+@section('scripts')
+	<script type="text/javascript">
+		function updateDictionary(word_id, lexicon_id)
+		{
+			if(lexicon_id == '') {
+				return;
+			}
+
+			jQuery.post('{{ route('dictionaries.updateLexicon') }}',
+				{
+					_method: 'PUT',
+					token: window.Laravel.csrfToken,
+					word_id: word_id,
+					lexicon_id: lexicon_id
+				},
+				function(data, textStatus, xhr) {
+			  alert(data.message);
+			});
+		}
+	</script>
+@endsection
+
 <div class="container">
 		<div class="panel panel-default">
 		    <div class="panel-heading">
@@ -31,7 +47,7 @@
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Lexicon</th>
+							<th class="col-md-3">Lexicon</th>
 							<th class="col-md-3">Actions</th>
 						</tr>
 					</thead>
@@ -40,10 +56,13 @@
 							<tr>
 								<td>{{ $resource->name }}</td>
 								<td>
-									@if($resource->lexicon)
-										@include('components.dropdown', ['name' => 'lexicon_id_'.$resource->lexicon->id, 'label' => '', 'options' => $lexicons, 'selected' => $resource->lexicon->id])
-										<div class="btn btn-primary" onclick="updateWordLexicon({{ $resource->lexicon->id }})">Update</div>
-									@endif
+									@include('components.forms.dropdowns-dictionary', [
+										'name' => 'dictionary_id_'.$resource->id,
+										'label' => '',
+										'options' => $lexicons,
+										'resource' => $resource,
+										'selected' => ($resource->lexicon) ? $resource->lexicon->id : null]
+									)
 								</td>
 								<td>
 									@include('components.actions', ['route' => $route, 'resource' => $resource])
