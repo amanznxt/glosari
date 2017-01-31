@@ -4,9 +4,9 @@
 	@if($type == 'PUT')
 		@include('components.forms.hidden', ['name' => 'id', 'value' => $resource->id])
 	@endif
-	@include('components.forms.input', ['type' => 'text', 'name' => 'title', 'value' => ($type == 'PUT' ? $resource->title : null)])
-	@include('components.forms.text', ['type' => 'text', 'name' => 'article', 'value' => ($type == 'PUT' ? $resource->article : null)])
-	@include('components.forms.input', ['type' => 'text', 'name' => 'url', 'value' => ($type == 'PUT' ? $resource->url : null)])
+	@include('components.forms.input', ['type' => 'text', 'label' => 'Title', 'name' => 'title', 'value' => ($type == 'PUT' ? $resource->title : null)])
+	@include('components.forms.text', ['type' => 'text', 'label' => 'Article', 'name' => 'article', 'value' => ($type == 'PUT' ? $resource->article : null)])
+	@include('components.forms.input', ['type' => 'text', 'label' => 'URL', 'name' => 'url', 'value' => ($type == 'PUT' ? $resource->url : null)])
 	@include('components.forms.hidden', ['name' => 'user_id', 'value' => auth()->user()->id])
 	@include('components.forms.submit',['route' => 'articles'])
 @endsection

@@ -12,7 +12,8 @@
  */
 // theme configuration can be use app.themes.default for default while app.themes.admin for admin
 Route::get('/', function (Request $request) {
-    return redirect()->route('login');
+    return view('welcome');
+    // return redirect()->route('login');
 });
 
 Route::get('/account/activate/{token}', 'AccountController@activate');
