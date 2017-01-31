@@ -33,6 +33,7 @@ Route::group(
         Route::get('dashboard', 'HomeController@index');
         \App\Routes\Article::routes();
         \App\Routes\Dictionary::routes();
+        \App\Routes\Spelling::routes();
 
         // Administrator, Trainer and Facilitator only
         Route::group(['middleware' => ['role:administrator']], function () {

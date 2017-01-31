@@ -12,7 +12,7 @@ use Carbon\Carbon;
  */
 class Process
 {
-    public static function work($id)
+    public static function work($id, $return = false)
     {
         // get the article
         $article = Article::find($id);
@@ -25,20 +25,30 @@ class Process
 
         $list = [];
 
+        $dictionaries = [];
+
         foreach ($words as $key => $value) {
 
             if (!self::_contained($value)) {
-                $dictionary = Dictionary::firstOrCreate([
-                    'name' => $value,
-                ]);
+                if ($return) {
+                    $dictionaries[] = $value;
+                } else {
+                    $dictionary = Dictionary::firstOrCreate([
+                        'name' => $value,
+                    ]);
 
-                if (empty($dictionary->lexicon_id)) {
-                    $job = (new ScrapDbp($dictionary))
-                        ->delay(Carbon::now()->addSeconds(10));
+                    if (empty($dictionary->lexicon_id)) {
+                        $job = (new ScrapDbp($dictionary))
+                            ->delay(Carbon::now()->addSeconds(10));
 
-                    dispatch($job);
+                        dispatch($job);
+                    }
                 }
             }
+        }
+
+        if ($return) {
+            return $dictionaries;
         }
     }
 

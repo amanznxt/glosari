@@ -32,9 +32,18 @@
 				'_method' => 'POST'
 			]])
 		@elseif($type == 'PUT')
-			<div class="btn btn-danger pull-right" onclick="process()">
-				<span class="glyphicon glyphicon-refresh pull-right"></span>
+
+			<div class="btn-group pull-right">
+				<div class="btn btn-default">
+					<a href="{{ route('check.spelling', ['id' => $resource->id]) }}">
+						<span class="glyphicon glyphicon-cog"></span>
+					</a>
+				</div>
+				<div class="btn btn-danger" onclick="process()">
+					<span class="glyphicon glyphicon-refresh"></span>
+				</div>
 			</div>
+
 			<hr>
 			@include('components.forms.base', ['options' => [
 				'method' => 'POST',
