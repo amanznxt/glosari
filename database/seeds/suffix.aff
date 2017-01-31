@@ -1,0 +1,54 @@
+SFX a Y 1
+SFX a 0 annya .
+SFX b Y 1
+SFX b 0 nya .
+SFX d Y 1
+SFX d 0 anlah .
+SFX e Y 1
+SFX e 0 kanlah .
+SFX f Y 1
+SFX f 0 iku .
+SFX g Y 1
+SFX g 0 nyalah . 
+SFX h Y 1
+SFX h 0 an . 
+SFX i Y 1
+SFX i 0 mulah . 
+SFX j Y 1
+SFX j 0 ilah . 
+SFX k Y 1
+SFX k 0 kah . 
+SFX l Y 1
+SFX l 0 i .
+SFX m Y 1
+SFX m 0 inya .
+SFX n Y 3
+SFX n 0 kan [^k] 
+SFX n k kan k 
+SFX n an kan an 
+SFX z Y 1
+SFX z 0 kan k
+SFX o Y 1
+SFX o 0 imu .
+SFX p Y 1
+SFX p 0 lah . 
+SFX q Y 1
+SFX q 0 ku . 
+SFX r Y 1
+SFX r 0 mu . 
+SFX s Y 1
+SFX s 0 pun . 
+SFX t Y 1
+SFX t 0 ankah .
+SFX u Y 1
+SFX u 0 anku .
+SFX v Y 1
+SFX v 0 anmu .
+SFX w Y 1
+SFX w 0 kukah .
+SFX x Y 1
+SFX x 0 kulah .
+SFX y Y 1
+SFX y 0 kannya .
+SFX c Y 1
+SFX c 0 isme .

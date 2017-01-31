@@ -54,6 +54,7 @@ class SpellingCheckerCommand extends Command
                     ->pluck('name')
                     ->toArray(),
                 'suggest' => Dictionary::where('name', 'like', '%' . $word . '%')
+                    ->orderBy('name')
                     ->get(['name'])
                     ->pluck('name')
                     ->toArray(),

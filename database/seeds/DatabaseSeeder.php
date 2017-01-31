@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(LaratrustSeeder::class);
+        $this->call(SpellingRulesSeeder::class);
+        $this->call(WordSeeder::class);
     }
 }

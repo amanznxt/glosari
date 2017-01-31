@@ -14,4 +14,9 @@ class Dictionary extends Model
     {
         return $this->belongsTo('App\Lexicon');
     }
+
+    public function rules()
+    {
+        return $this->belongsToMany('App\SpellingRule', 'dictionary_rules', 'dictionary_id', 'rule_id');
+    }
 }
