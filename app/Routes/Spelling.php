@@ -16,6 +16,7 @@ class Spelling
             'middleware' => [],
         ], function () {
             Route::get('spellings/{id}', '\App\Http\Controllers\SpellingController@check')->name('check.spelling');
+            Route::post('spellings/', '\App\Http\Controllers\SpellingController@store')->name('check.spelling.store');
         });
     }
 }

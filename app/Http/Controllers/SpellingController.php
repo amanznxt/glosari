@@ -74,4 +74,9 @@ class SpellingController extends Controller
         }
         return $duplicate;
     }
+
+    public function store()
+    {
+        dd(request()->input());
+    }
 }
