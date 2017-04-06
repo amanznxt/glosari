@@ -23,11 +23,8 @@
         }
     </style>
     <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-    'csrfToken' => csrf_token(),
-]); ?>
-    </script>
+    <script>window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token()]); ?></script>
+    @yield('styles')
 </head>
 <body>
     @include('layouts.components.navigation')

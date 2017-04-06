@@ -20,6 +20,14 @@
     "casper": "^0.1.1",
     "font-awesome": "^4.6.3",
     "gulp": "^3.9.1",
-    "notyf": "^2.0.1"
+    "notyf": "^2.0.1",
+    "datatables.net": "^1.10.13",
+    "datatables.net-bs": "^1.10.13",
+    "datatables.net-buttons-bs": "^1.2.4",
+    "datatables.net-fixedheader-bs": "^3.1.2",
+    "datatables.net-responsive-bs": "^2.1.1",
+    "datatables.net-select-bs": "^1.2.1",
+    "select2": "^4.0.3",
+    "select2-bootstrap-theme": "^0.1.0-beta.9"
   }
 }
