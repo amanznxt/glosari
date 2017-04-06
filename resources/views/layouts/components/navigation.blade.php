@@ -29,6 +29,9 @@
                     <li><a href="{{ url('/login') }}">Login</a></li>
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
+                    @ability('administrator','*')
+                        <li><a href="{{ route('articles.create') }}"><i class="glyphicon glyphicon-plus"></i> New Article</a></li>
+                    @endability
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             @if(!empty(Auth::user()->profile->avatar))
