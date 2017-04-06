@@ -16,14 +16,14 @@ class DictionaryController extends Controller
     public function index()
     {
         $dictionaries = Dictionary::orderBy('created_at', 'desc')->paginate(25);
-        $lexicons = Lexicon::whereNull('parent_id')->orderby('name')->get();
-        $totalSet = Dictionary::whereNotNull('lexicon_id')->get()->count();
-        $totalNotSet = Dictionary::whereNull('lexicon_id')->get()->count();
+        $lexicons     = Lexicon::whereNull('parent_id')->orderby('name')->get();
+        $totalSet     = Dictionary::whereNotNull('lexicon_id')->get()->count();
+        $totalNotSet  = Dictionary::whereNull('lexicon_id')->get()->count();
         return view('dictionaries.index', [
-            'resources' => $dictionaries,
-            'route' => 'dictionaries',
-            'lexicons' => $lexicons,
-            'totalSet' => $totalSet,
+            'resources'   => $dictionaries,
+            'route'       => 'dictionaries',
+            'lexicons'    => $lexicons,
+            'totalSet'    => $totalSet,
             'totalNotSet' => $totalNotSet,
         ]);
     }
@@ -63,8 +63,9 @@ class DictionaryController extends Controller
      */
     public function show($id)
     {
-        $dictionary = Dictionary::find($id);
-        return view('dictionaries.show', ['resource' => $dictionary]);
+        $dictionary = Dictionary::with('lexicon')->find($id);
+        $lexicons   = Lexicon::whereNull('parent_id')->orderby('name')->get();
+        return view('dictionaries.show', ['datum' => $dictionary, 'lexicons' => $lexicons]);
     }
 
     /**
@@ -75,9 +76,9 @@ class DictionaryController extends Controller
      */
     public function edit($id)
     {
-        $type = 'PUT';
+        $type       = 'PUT';
         $dictionary = Dictionary::find($id);
-        $lexicons = Lexicon::whereNull('parent_id')->orderby('name')->get();
+        $lexicons   = Lexicon::whereNull('parent_id')->orderby('name')->get();
         return view('dictionaries.form', ['type' => 'PUT', 'resource' => $dictionary, 'lexicons' => $lexicons]);
     }
 
@@ -112,7 +113,7 @@ class DictionaryController extends Controller
     public function setWordLexicon(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required',
+            'id'         => 'required',
             'lexicon_id' => 'required',
         ]);
 
