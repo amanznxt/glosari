@@ -3,8 +3,10 @@ require('./bootstrap');
 require('./datatables')
 require('./select2')
 require('bootstrap-sass');
+require('notyf');
 
 jQuery(document).ready(function($) {
+    window.notyf = new Notyf();
 	/**
 	 * Laravel Ajax Setup
 	 */
