@@ -100,11 +100,11 @@
 	      <div class="modal-body">
 	        <table class="table table-condensed">
 				<tr>
-					<th>Word</th>
-					<th>Lexicon</th>
+					<td>Word</td>
+					<td id="dictionary_name"></td>
 				</tr>
 				<tr>
-					<td id="dictionary_name"></td>
+					<td>Lexicon</td>
 					<td>
 						@include('components.dropdown', [
 							'name'     => 'dictionary_id',
@@ -124,7 +124,7 @@
 	    <div class="row">
 	        <div class="col-md-8 col-md-offset-2">
 	            <div class="panel panel-default">
-	                <div class="panel-heading">Dashboard</div>
+	                <div class="panel-heading">Dictionaries</div>
 
 	                <div class="panel-body">
 						<table id="dictionary-table" class="display" cellspacing="0" width="100%">
