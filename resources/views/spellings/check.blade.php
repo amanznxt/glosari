@@ -23,6 +23,7 @@
 
 				<form action="{{ route('check.spelling.store') }}" method="post">
 					{{ csrf_field() }}
+					<input type="hidden" name="article_id" id="article_id" value="{{ $article->id }}">
 					<table class="table table-condensed">
 						<thead>
 							<tr>
