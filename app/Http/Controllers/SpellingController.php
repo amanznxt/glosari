@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Collocations\Core\Process;
 use App\Dictionary;
+use App\Jobs\ScrapDbp;
+use Carbon\Carbon;
 
 // use App\SpellingRule;
 
@@ -13,7 +15,7 @@ class SpellingController extends Controller
     public function check($id)
     {
         $article = Article::find($id);
-        $words = Process::work($id, true);
+        $words   = Process::work($id, true);
         $results = [];
 
         foreach ($words as $word) {
@@ -27,16 +29,16 @@ class SpellingController extends Controller
             if (empty($search)) {
                 $suggest = Dictionary::where('name', 'like', '%' . $word . '%')
                     ->orderBy('name')
-                    ->get(['name'])
-                    ->pluck('name')
+                    ->get(['name', 'id'])
+                    ->pluck('name', 'name')
                     ->toArray();
             }
 
             // check if already record, don't store
             if (!$this->duplicate($results, $word)) {
                 $results[] = [
-                    'word' => $word,
-                    'status' => !empty($search) ? true : false,
+                    'word'    => $word,
+                    'status'  => !empty($search) ? true : false,
                     'suggest' => $suggest,
                 ];
             }
@@ -56,7 +58,6 @@ class SpellingController extends Controller
                     $article->article);
             }
         }
-
         // do check each word for it spellings
         // $suffixes = SpellingRule::where('type', 'SFX')->get(['key', 'value', 'contain'])->pluck('value')->toArray();
         // $prefixes = SpellingRule::where('type', 'PFX')->get(['key', 'value', 'contain'])->pluck('value')->toArray();
@@ -77,6 +78,30 @@ class SpellingController extends Controller
 
     public function store()
     {
-        dd(request()->input());
+        $suggestions = request('suggest');
+        $replace     = [];
+        $search      = [];
+
+        foreach ($suggestions as $key => $value) {
+            if ($key != $value) {
+                $search[]  = $key;
+                $replace[] = $value;
+            }
+        }
+
+        $article          = Article::find(request('article_id'));
+        $article->article = str_replace($search, $replace, $article->article);
+        $article->save();
+
+        $dictionaries = request('dictionary');
+        foreach ($dictionaries as $key => $value) {
+            $dictionary = Dictionary::firstOrcreate(['name' => $value]);
+
+            $job = (new ScrapDbp($dictionary))->delay(Carbon::now()->addSeconds(10));
+
+            dispatch($job);
+        }
+        flash('You have update the article content.', 'success');
+        return redirect()->route('articles.show', ['article' => $article]);
     }
 }
