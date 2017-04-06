@@ -45,9 +45,15 @@ class LexiconController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $word = Dictionary::with('lexicon')->where('id', request('id'))->first();
+
+        if ($word->lexicon) {
+            return response()->json(['lexicon' => $word->lexicon]);
+        } else {
+            return response()->json();
+        }
     }
 
     /**

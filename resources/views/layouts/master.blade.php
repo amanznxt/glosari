@@ -29,11 +29,10 @@
 <body>
     @include('layouts.components.navigation')
 
-    @if(session('message'))
-        @include('components.message')
-    @endif
-
     <div class="container">
+        @if(session('message'))
+            @include('components.message')
+        @endif
         @yield('content')
     </div>
 

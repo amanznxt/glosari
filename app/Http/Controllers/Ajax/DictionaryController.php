@@ -28,8 +28,10 @@ class DictionaryController extends Controller
 
     private function renderActions($datum)
     {
-        return view('components.link')
-            ->with('link', route('dictionaries.show', ['dictionary' => $datum->id]))
+        return view('components.link-modal')
+            ->with('name', $datum->name)
+            ->with('dictionary', $datum->id)
+            ->with('toggle', 'edit-dictionary-modal')
             ->with('label', 'Details')
             ->render();
     }

@@ -14,7 +14,12 @@ Route::group(['namespace' => 'Dictionary', 'prefix' => 'dictionaries', 'as' => '
      */
     Route::group(['namespace' => 'Word', 'prefix' => 'words', 'as' => 'words.'], function () {
         /**
-         * Manage Word's Lexicon
+         * Get Word's Lexicon
+         */
+        Route::get('lexicons', 'LexiconController@show')->name('lexicons.show');
+
+        /**
+         * Update Word's Lexicon
          */
         Route::put('lexicons', 'LexiconController@update')->name('lexicons.update');
     });

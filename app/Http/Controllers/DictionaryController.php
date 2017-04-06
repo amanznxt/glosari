@@ -15,13 +15,13 @@ class DictionaryController extends Controller
      */
     public function index()
     {
-        $dictionaries = Dictionary::orderBy('created_at', 'desc')->paginate(25);
-        $lexicons     = Lexicon::whereNull('parent_id')->orderby('name')->get();
-        $totalSet     = Dictionary::whereNotNull('lexicon_id')->get()->count();
-        $totalNotSet  = Dictionary::whereNull('lexicon_id')->get()->count();
+        // $dictionaries = Dictionary::orderBy('created_at', 'desc')->paginate(25);
+        $lexicons    = Lexicon::whereNull('parent_id')->orderby('name')->get();
+        $totalSet    = Dictionary::whereNotNull('lexicon_id')->get()->count();
+        $totalNotSet = Dictionary::whereNull('lexicon_id')->get()->count();
         return view('dictionaries.index', [
-            'resources'   => $dictionaries,
-            'route'       => 'dictionaries',
+            // 'resources'   => $dictionaries,
+            // 'route'       => 'dictionaries',
             'lexicons'    => $lexicons,
             'totalSet'    => $totalSet,
             'totalNotSet' => $totalNotSet,
