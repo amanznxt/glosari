@@ -14,7 +14,7 @@
 					lexicon_id: lexicon_id
 				},
 				function(data, textStatus, xhr) {
-			  		alert(data.message);
+					notyf.alert(data.message);
 				}
 			);
 		}
