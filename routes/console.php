@@ -1,5 +1,8 @@
 <?php
 
+use App\Collocations\Core\Splitter;
+use App\Collocations\Dbp\Scrap;
+use App\Dictionary;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -34,7 +37,53 @@ Artisan::command('scrap:dbp {keyword}', function () {
     exec("casperjs $casper $keyword 2>&1", $output, $return_var);
 
     $output_json = implode("", $output);
-    $decode = json_decode($output_json);
+    $decode      = json_decode($output_json);
 
     dd($decode);
 })->describe('Scrap DBP Site');
+
+Artisan::command('check:phrase', function () {
+
+    // get lexicon each words
+    $paragraphs = ['Microsoft sebelum ini sedia menjanjikan bakal menawarkan kemaskini Windows 10 Creators Update secara manual kepada pengguna seminggu lebih awal, dan seperti dijanjikan, kini ia telah mula ditawarkan.'];
+
+    $sentences = Splitter::paragraphsToSentences($paragraphs);
+    $words     = Splitter::sentencesToWords($sentences);
+
+    $words  = array_diff($words, Splitter::$delimeters);
+    $_words = [];
+    foreach ($words as $word) {
+
+        $dictionary = Dictionary::firstOrCreate(['name' => $word]);
+
+        if (!in_array($word, Splitter::$delimeters)) {
+            $this->info('Scrap from DBP: ' . $word);
+            $scrap = Scrap::now($word);
+            if ($scrap) {
+                $dictionary->lexicon_id = Lexicon::where('name', $scrap->type)->first()->id;
+                $dictionary->save();
+            }
+            $_words[] = $scrap;
+        }
+    }
+    dd($_words);
+    // get rules related to word's lexicon
+
+    $prefixes = App\SpellingRule::whereType('PFX')->get()->map(function ($rule) {
+        return [
+            'key'   => $rule->key,
+            'value' => $rule->value,
+            'regex' => $rule->contain,
+        ];
+    });
+
+    $suffixes = App\SpellingRule::whereType('SFX')->get()->map(function ($rule) {
+        return [
+            'key'   => $rule->key,
+            'value' => $rule->value,
+            'regex' => $rule->contain,
+        ];
+    });
+
+    // check validity based on rules given
+})->describe('Validate phrase given.');
