@@ -17,7 +17,7 @@ class CreateLexiconsTable extends Migration
             $table->increments('id');
             $table->integer('parent_id')->unsigned()->nullable();
             $table->string('name');
-            $table->string('tag', 3);
+            $table->string('tag', 5);
             $table->timestamps();
         });
     }
