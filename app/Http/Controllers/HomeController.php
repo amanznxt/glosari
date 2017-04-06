@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
+use App\Dictionary;
+use App\Word;
+
 class HomeController extends Controller
 {
     /**
@@ -21,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $dictionary_count = Dictionary::all()->count();
+        $article_count    = Article::all()->count();
+        $word_count       = Word::all()->count();
+        return view('home', compact('dictionary_count', 'article_count', 'word_count'));
     }
 }

@@ -15,6 +15,7 @@
 				},
 				function(data, textStatus, xhr) {
 					notyf.alert(data.message);
+					jQuery('#resource-edit-' + word_id).removeAttr('disabled');
 				}
 			);
 		}
@@ -70,7 +71,7 @@
 									)
 								</td>
 								<td>
-									@include('components.actions', ['route' => $route, 'resource' => $resource])
+									@include('components.actions.dictionary', ['route' => $route, 'resource' => $resource, 'lexicon_id' => $resource->lexicon])
 								</td>
 							</tr>
 						@endforeach
