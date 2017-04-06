@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LaratrustSeeder::class);
         $this->call(SpellingRulesSeeder::class);
         $this->call(WordSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }
