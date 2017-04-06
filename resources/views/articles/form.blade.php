@@ -16,7 +16,7 @@
 		<script type="text/javascript">
 			function process() {
 				jQuery.get('{{ route('articles.process', ['id' => $resource->id]) }}', {}, function(data, textStatus, xhr) {
-				  alert('Analyze in progress. We will notify you when it\'s ready.');
+				  notyf.alert('Analyze in progress. We will notify you when it\'s ready.');
 				});
 			}
 		</script>
