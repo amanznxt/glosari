@@ -3,7 +3,7 @@
 namespace App\Collocations\Dbp;
 
 /**
- *
+ * Do scrap from DBP to get word's lexicon
  */
 class Scrap
 {
@@ -17,7 +17,7 @@ class Scrap
         exec("casperjs $casper $keyword 2>&1", $output, $return_var);
 
         $output_json = implode("", $output);
-        $decode = json_decode($output_json);
+        $decode      = json_decode($output_json);
 
         if ($decode && property_exists($decode, 'type')) {
             $decode->type = title_case($decode->type);
