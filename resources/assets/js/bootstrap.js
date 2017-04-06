@@ -15,4 +15,4 @@ jQuery(document).ready(function($) {
 
 require('notyf');
 
-var notyf = new Notyf();
+window.notyf = new Notyf();
