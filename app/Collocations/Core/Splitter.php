@@ -61,6 +61,7 @@ class Splitter
         foreach ($sentences as $key => $value) {
             $_words = self::_split($pattern, $value);
             foreach ($_words as $k => $v) {
+                $v = self::_cleanWord($v);
                 if (!empty($v)) {
                     $contained = self::_contained($v);
                     if ($contained != false) {
@@ -74,6 +75,11 @@ class Splitter
             }
         }
         return $words;
+    }
+
+    public static function _cleanWord($word)
+    {
+        return preg_replace("/[^A-Za-z0-9\-]/", '', $word);
     }
 
     /**
