@@ -14,16 +14,16 @@ class LaratrustSeeder extends Seeder
     {
         $this->truncateLaratrustTables();
 
-        $config = config('laratrust_seeder.role_structure');
+        $config        = config('laratrust_seeder.role_structure');
         $mapPermission = collect(config('laratrust_seeder.permissions_map'));
-        $faker = Faker\Factory::create();
+        $faker         = Faker\Factory::create();
 
         foreach ($config as $key => $modules) {
             // Create a new role
             $role = \App\Role::create([
-                'name' => $key,
+                'name'         => $key,
                 'display_name' => ucfirst($key),
-                'description' => ucfirst($key),
+                'description'  => ucfirst($key),
             ]);
 
             $this->command->info('Creating Role ' . strtoupper($key));
@@ -36,9 +36,9 @@ class LaratrustSeeder extends Seeder
                     $permissionValue = $mapPermission->get($perm);
 
                     $permission = \App\Permission::firstOrCreate([
-                        'name' => $module . '-' . $permissionValue,
+                        'name'         => $module . '-' . $permissionValue,
                         'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
-                        'description' => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                        'description'  => ucfirst($permissionValue) . ' ' . ucfirst($module),
                     ]);
 
                     $this->command->info('Creating Permission to ' . $permissionValue . ' for ' . $module);
@@ -50,24 +50,6 @@ class LaratrustSeeder extends Seeder
                     }
                 }
             }
-
-            // Create default user for each role
-            $user = \App\User::create([
-                'name' => ucfirst($key),
-                'email' => $key . '@app.com',
-                'password' => bcrypt('password'),
-                'remember_token' => str_random(10),
-            ]);
-            $user->attachRole($role);
-
-            // // create total of 100 users
-            // factory(\App\User::class, 96)->create()->each(function ($u) use ($role, $faker) {
-            //     $u->attachRole($role);
-            //     \App\Profile::create([
-            //         'user_id' => $u->id,
-            //         'phone' => $faker->regexify('[0-9]{12}'),
-            //     ]);
-            // });
         }
     }
 
