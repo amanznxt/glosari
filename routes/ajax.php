@@ -9,6 +9,11 @@ Route::resource('dictionaries', 'DictionaryController');
  * Sub modules of Dictionary
  */
 Route::group(['namespace' => 'Dictionary', 'prefix' => 'dictionaries', 'as' => 'dictionaries.'], function () {
+
+    /**
+     * Remove dictionary
+     */
+    Route::post('words', 'WordController@destroy')->name('words.destroy');
     /**
      * Sub modules of Dictionary > Words
      */

@@ -5,8 +5,9 @@
 
 @section('scripts')
 	<script type="text/javascript">
+		var table;
 		jQuery(document).ready(function($) {
-			$('#dictionary-table').DataTable( {
+			table = $('#dictionary-table').DataTable( {
 		        ajax: '{{ route('ajax.dictionaries.index') }}',
 		        lengthMenu: [[25, 50, 75, 100], [25, 50, 75, 100]]
 		    } );
@@ -65,6 +66,20 @@
 			  });
 			})
 		});
+
+		function deleteDictionary(dictionary_id)
+		{
+			if(!confirm('Are you sure want to delete this record?')) {
+				return false;
+			}
+			$.post('{!! route('ajax.dictionaries.words.destroy') !!}',
+				{
+					id : dictionary_id
+				}, function(data, textStatus, xhr) {
+				notyf.alert(data.message);
+				table.ajax.reload();
+			});
+		}
 
 		function updateDictionary(word_id, lexicon_id)
 		{
