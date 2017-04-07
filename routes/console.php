@@ -116,3 +116,17 @@ Artisan::command('posts:fetch', function () {
     }
     $this->info('Posts fetched and processed.');
 })->describe('Fetch Amanz Latest Articles');
+
+Artisan::command('dictionary:cleanup', function () {
+    $dictionaries = Dictionary::whereNotIn('name', Splitter::$delimeters)->get();
+    foreach ($dictionaries as $dictionary) {
+        $name  = $dictionary->name;
+        $clean = Splitter::_cleanWord($name);
+
+        if ($name != $clean) {
+            $dictionary->name = $clean;
+            $dictionary->save();
+            $this->info('Clean up: ' . $name . ':' . $clean);
+        }
+    }
+})->describe('Clean up dictionaries from non-alphanumer');
