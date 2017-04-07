@@ -1,7 +1,6 @@
 <?php
 
 use App\Collocations\Core\Splitter;
-use App\Collocations\Dbp\Scrap;
 use App\Dictionary;
 use Illuminate\Foundation\Inspiring;
 
@@ -50,23 +49,29 @@ Artisan::command('check:phrase', function () {
     $sentences = Splitter::paragraphsToSentences($paragraphs);
     $words     = Splitter::sentencesToWords($sentences);
 
-    $words  = array_diff($words, Splitter::$delimeters);
+    // $words  = array_diff($words, Splitter::$delimeters);
     $_words = [];
+    $_tags  = [];
     foreach ($words as $word) {
 
         $dictionary = Dictionary::firstOrCreate(['name' => $word]);
 
-        if (!in_array($word, Splitter::$delimeters)) {
-            $this->info('Scrap from DBP: ' . $word);
-            $scrap = Scrap::now($word);
-            if ($scrap) {
-                $dictionary->lexicon_id = Lexicon::where('name', $scrap->type)->first()->id;
-                $dictionary->save();
-            }
-            $_words[] = $scrap;
+        if ($dictionary->lexicon) {
+            $_words[$word] = $dictionary->lexicon->tag;
+            $_tags[]       = $dictionary->lexicon->tag;
         }
+
+        // if (!in_array($word, Splitter::$delimeters)) {
+        //     $this->info('Scrap from DBP: ' . $word);
+        //     $scrap = Scrap::now($word);
+        //     if ($scrap) {
+        //         $dictionary->lexicon_id = Lexicon::where('name', $scrap->type)->first()->id;
+        //         $dictionary->save();
+        //     }
+        //     $_words[] = $scrap;
+        // }
     }
-    dd($_words);
+    dd($_words, $_tags);
     // get rules related to word's lexicon
 
     $prefixes = App\SpellingRule::whereType('PFX')->get()->map(function ($rule) {
@@ -87,3 +92,27 @@ Artisan::command('check:phrase', function () {
 
     // check validity based on rules given
 })->describe('Validate phrase given.');
+
+Artisan::command('posts:fetch', function () {
+    $posts = json_decode(file_get_contents('https://amanz.my/wp-json/wp/v2/posts'));
+    $posts = collect($posts)->map(function ($post) {
+        return [
+            'title'   => $post->title->rendered,
+            'article' => strip_tags($post->content->rendered),
+            'url'     => $post->link,
+            'user_id' => 1,
+        ];
+    });
+
+    foreach ($posts as $post) {
+        $this->info('Processing: ' . $post['title']);
+        $exist = \App\Article::where('title', $post['title'])->first();
+        if ($exist) {
+            $this->error('Article already exist: ' . $post['title']);
+        } else {
+            $article = \App\Article::create($post);
+            \App\Collocations\Core\Process::work($article->id);
+        }
+    }
+    $this->info('Posts fetched and processed.');
+})->describe('Fetch Amanz Latest Articles');
