@@ -81,10 +81,13 @@ class LexiconController extends Controller
             'lexicon_id' => 'required',
         ]);
 
-        Dictionary::where('id', $request->input('id'))->update($request->except('_method', '_token'));
+        $dictionary             = Dictionary::where('id', $request->input('id'))->first();
+        $dictionary->lexicon_id = $request->input('lexicon_id');
 
-        if ($request->wantsJson()) {
+        if ($dictionary->save() && $request->wantsJson()) {
             return response()->json(['message' => 'Dictionary Lexicon Updated']);
+        } else {
+            return response()->json(['message' => 'Unable to Dictionary Lexicon']);
         }
     }
 
