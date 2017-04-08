@@ -1,7 +1,9 @@
 <?php
 
+use App\Article;
 use App\Collocations\Core\Splitter;
 use App\Dictionary;
+use Carbon\Carbon;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -93,20 +95,47 @@ Artisan::command('check:phrase', function () {
     // check validity based on rules given
 })->describe('Validate phrase given.');
 
-Artisan::command('posts:fetch', function () {
-    $posts = json_decode(file_get_contents('https://amanz.my/wp-json/wp/v2/posts'));
-    $posts = collect($posts)->map(function ($post) {
+Artisan::command('posts:fetch {per_page=10} {--reverse}', function () {
+
+    // Enhancement: if per_page is more than 100,
+    // need to separate the process to batches of 100 records for each batch
+
+    $params   = [];
+    $params[] = 'per_page=' . $this->argument('per_page');
+
+    if ($this->option('reverse') === true) {
+        $carbonDate = Article::orderBy('date', 'asc')->first(['date']);
+
+        if ($carbonDate) {
+            $d        = $carbonDate->date->toIso8601String();
+            $params[] = 'before=' . remove_utc_hours($d);
+            $this->comment('Fetching posts before ' . remove_utc_hours($d));
+        }
+    } else {
+        $carbonDate = Article::orderBy('date', 'desc')->first(['date']);
+
+        if ($carbonDate) {
+            $d        = $carbonDate->date->toIso8601String();
+            $params[] = 'after=' . remove_utc_hours($d);
+            $this->comment('Fetching posts after ' . remove_utc_hours($d));
+        }
+    }
+
+    $query_string = join('&', $params);
+    $posts        = json_decode(file_get_contents('https://amanz.my/wp-json/wp/v2/posts?' . $query_string));
+    $posts        = collect($posts)->map(function ($post) {
         return [
-            'title'   => $post->title->rendered,
-            'article' => strip_tags($post->content->rendered),
+            'title'   => html_entity_decode(remove_emoji($post->title->rendered)),
+            'article' => remove_emoji(strip_tags($post->content->rendered)),
             'url'     => $post->link,
+            'date'    => (new Carbon($post->date))->toDateTimeString(),
             'user_id' => 1,
         ];
     });
 
     foreach ($posts as $post) {
         $this->info('Processing: ' . $post['title']);
-        $exist = \App\Article::where('title', $post['title'])->first();
+        $exist = Article::where('title', $post['title'])->first();
         if ($exist) {
             $this->error('Article already exist: ' . $post['title']);
         } else {
