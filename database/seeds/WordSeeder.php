@@ -28,8 +28,8 @@ class WordSeeder extends Seeder
         ];
 
         Dictionary::truncate();
-        $wordsRaw = $this->file->get(database_path('seeds/ms-MY.dic'));
-        $words = explode("\n", $wordsRaw);
+        $wordsRaw = $this->file->get(storage_path('app/seeds/ms-MY.dic'));
+        $words    = explode("\n", $wordsRaw);
         # Enhancement Proposal
         // find duplicate words
         // if any, discard from the array

@@ -13,7 +13,11 @@ class LexiconTableSeeder extends Seeder
     public function run()
     {
         Lexicon::truncate();
-        $path = storage_path('sql/lexicon_parents.sql');
+
+        $path = storage_path('app/sql/lexicons.sql');
+        DB::unprepared(file_get_contents($path));
+
+        $path = storage_path('app/sql/lexicons-childs.sql');
         DB::unprepared(file_get_contents($path));
     }
 }

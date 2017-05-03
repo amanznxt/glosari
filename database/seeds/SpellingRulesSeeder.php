@@ -28,8 +28,8 @@ class SpellingRulesSeeder extends Seeder
     {
         $this->command->error('Fetching ' . $type . '(' . $label . ')...');
 
-        $path = database_path('seeds/' . $type . '.aff');
-        $content = $this->file->get($path);
+        $path     = storage_path('app/seeds/' . $type . '.aff');
+        $content  = $this->file->get($path);
         $prefixes = explode("\n", $content);
 
         foreach ($prefixes as $prefix) {
@@ -57,11 +57,11 @@ class SpellingRulesSeeder extends Seeder
             return false;
         }
         return [
-            'type' => null,
-            'key' => $explode[1],
-            'value' => $explode[3],
+            'type'    => null,
+            'key'     => $explode[1],
+            'value'   => $explode[3],
             'contain' => isset($explode[4]) ? $explode[4] : null,
-            'raw' => $prefix,
+            'raw'     => $prefix,
         ];
     }
 }

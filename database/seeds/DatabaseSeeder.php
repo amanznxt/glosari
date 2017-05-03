@@ -11,9 +11,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /**
+         * RBAC Seeder
+         */
         $this->call(LaratrustSeeder::class);
+
+        /**
+         * Lexicons
+         */
+        $this->call(LexiconTableSeeder::class);
+
+        /**
+         * Spelling Rules from myEja
+         */
         $this->call(SpellingRulesSeeder::class);
+
+        /**
+         * Seed Default Words
+         */
         $this->call(WordSeeder::class);
+
+        /**
+         * Create Default User
+         */
         $this->call(UserTableSeeder::class);
     }
 }
