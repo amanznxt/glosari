@@ -17,7 +17,7 @@ class LexiconTableSeeder extends Seeder
         $path = storage_path('app/sql/lexicons.sql');
         DB::unprepared(file_get_contents($path));
 
-        $path = storage_path('app/sql/lexicons-childs.sql');
-        DB::unprepared(file_get_contents($path));
+        // $path = storage_path('app/sql/lexicons-childs.sql');
+        // DB::unprepared(file_get_contents($path));
     }
 }
