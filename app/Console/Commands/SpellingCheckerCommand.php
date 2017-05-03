@@ -12,7 +12,7 @@ class SpellingCheckerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'spelling:check
+    protected $signature = 'check:spelling
                             {word* : List of Bahasa Melayu words to check}';
 
     /**
@@ -39,7 +39,7 @@ class SpellingCheckerCommand extends Command
      */
     public function handle()
     {
-        $words = $this->argument('word');
+        $words  = $this->argument('word');
         $errors = [];
         // fetch possible words available
         // get the exact word exist
@@ -48,8 +48,8 @@ class SpellingCheckerCommand extends Command
         $results = [];
         foreach ($words as $word) {
             $results[] = [
-                'word' => $word,
-                'search' => Dictionary::where('name', $word)
+                'word'    => $word,
+                'search'  => Dictionary::where('name', $word)
                     ->get(['name'])
                     ->pluck('name')
                     ->toArray(),

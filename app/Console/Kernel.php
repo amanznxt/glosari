@@ -2,7 +2,12 @@
 
 namespace App\Console;
 
-use App\Console\Commands\SpellingCheckerCommand;
+use App\Console\Commands\CheckPhraseCommand as CheckPhrase;
+use App\Console\Commands\CleanUpDictionaryCommand as CleanUpDictionary;
+use App\Console\Commands\FetchArticlesCommand as FetchArticles;
+use App\Console\Commands\ResetUserPasswordCommand as ResetPassword;
+use App\Console\Commands\ScarpDbpCommand as ScarpDbp;
+use App\Console\Commands\SpellingCheckerCommand as CheckSpelling;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +19,12 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        SpellingCheckerCommand::class,
+        CheckPhrase::class,
+        CheckSpelling::class,
+        CleanUpDictionary::class,
+        FetchArticles::class,
+        ScarpDbp::class,
+        ResetPassword::class, // developer use
     ];
 
     /**
