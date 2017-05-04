@@ -11,12 +11,8 @@
 					'attr' => 'title',
 				],
 				[
-					'label' => 'Article',
-					'attr' => 'article',
-				],
-				[
-					'label' => 'Created On',
-					'attr' => 'created_at',
+					'label' => 'Published On',
+					'attr' => 'date',
 				],
 			]
 		])
