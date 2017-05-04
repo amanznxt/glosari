@@ -21,6 +21,26 @@
         * {
             font-family: 'Karla', sans-serif;
         }
+        .btn {
+            border-radius: 0px !important;
+        }
+        .selected {
+            /*animation: color-me-in 0.5s;*/
+            background-color: blue;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        @keyframes color-me-in {
+          /* You could think of as "step 1" */
+          0% {
+            background: white;
+          }
+          /* You could think of as "step 2" */
+          100% {
+            background: blue;
+          }
+        }
     </style>
     <!-- Scripts -->
     <script>window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token()]); ?></script>
