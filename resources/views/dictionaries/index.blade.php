@@ -8,9 +8,23 @@
 		var table;
 		jQuery(document).ready(function($) {
 			table = $('#dictionary-table').DataTable( {
+				columnDefs: [
+					{ width: "120px", targets: 1 }
+				],
 		        ajax: '{{ route('ajax.dictionaries.index') }}',
 		        lengthMenu: [[25, 50, 75, 100], [25, 50, 75, 100]]
 		    } );
+
+		    $('#dictionary-table tbody').on( 'click', 'tr', function () {
+		        if ( $(this).hasClass('selected') ) {
+		            $(this).removeClass('selected');
+		        }
+		        else {
+		            table.$('tr.selected').removeClass('selected');
+		            $(this).addClass('selected');
+		        }
+		    } );
+
 
 		    $('#dictionary_id').on('change' , function(){
 		    	var word_id = $(this).data('dictionary');
@@ -113,7 +127,7 @@
 	        <h4 class="modal-title" id="edit-dictionary-modal-label">Edit</h4>
 	      </div>
 	      <div class="modal-body">
-	        <table class="table table-condensed">
+	        <table class="table table-condensed table-hover">
 				<tr>
 					<td>Word</td>
 					<td id="dictionary_name"></td>
@@ -142,7 +156,7 @@
 	                <div class="panel-heading">Dictionaries</div>
 
 	                <div class="panel-body">
-						<table id="dictionary-table" class="display" cellspacing="0" width="100%">
+						<table id="dictionary-table" class="table table-condensed table-hover" cellspacing="0" width="100%">
 					        <thead>
 					            <tr>
 					                <th>Name</th>
