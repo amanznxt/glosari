@@ -14,7 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::orderBy('created_at', 'desc')->paginate(25);
+        $articles = Article::orderBy('date', 'desc')->paginate(25);
         return view('articles.index', ['resources' => $articles, 'route' => 'articles']);
     }
 
@@ -64,7 +64,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $type = 'PUT';
+        $type    = 'PUT';
         $article = Article::find($id);
         return view('articles.form', ['type' => 'PUT', 'resource' => $article]);
     }
