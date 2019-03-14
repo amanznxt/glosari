@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
      */
 
-    'name' => 'Amanz Glossari',
+    'name' => env('APP_NAME', 'Glosari'),
 
     'themes' => [
         'default' => [
